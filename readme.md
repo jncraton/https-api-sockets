@@ -8,7 +8,7 @@ Note that this project intentionally uses Python's socket interface and low-leve
 Assignment
 ----------
 
-The code in `getsentiment.py` is incomplete. Fill in the missing sections to complete the program. When you are finished, all tests should pass, and the program should be able to be run from a terminal as follows:
+The code in `getsentiment.py` is incomplete. Fill in the missing sections (denoted using angle brackets) to complete the program. When you are finished, all tests should pass, and the program should be able to be run from a terminal as follows:
 
 ```
 > python3 getsentiment.py The greatest glory in living lies not in never falling, but in rising every time we fall.
