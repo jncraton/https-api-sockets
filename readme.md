@@ -11,6 +11,6 @@ Assignment
 The code in `getsentiment.py` is incomplete. Fill in the missing sections (denoted using angle brackets) to complete the program. When you are finished, all tests should pass, and the program should be able to be run from a terminal as follows:
 
 ```
-> python3 getsentiment.py The greatest glory in living lies not in never falling, but in rising every time we fall.
-1.0
+> python3 getsentiment.py I love sockets.
+0.5
 ```
