@@ -14,3 +14,9 @@ The code in `getsentiment.py` is incomplete. Fill in the missing sections (denot
 > python3 getsentiment.py I love sockets.
 0.5
 ```
+
+Useful docs
+-----------
+
+- [socket](https://docs.python.org/3/library/socket.html)
+- [ssl](https://docs.python.org/3/library/ssl.html)
