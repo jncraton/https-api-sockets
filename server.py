@@ -1,5 +1,5 @@
 from flask import Flask, request, abort
-import json
+import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 app = Flask(__name__)
