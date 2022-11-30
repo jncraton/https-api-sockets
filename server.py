@@ -1,17 +1,11 @@
 from flask import Flask, request, abort
 import json
-import torch
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 app = Flask(__name__)
 
-tokenizer = DistilBertTokenizer.from_pretrained(
-    "distilbert-base-uncased-finetuned-sst-2-english"
-)
-model = DistilBertForSequenceClassification.from_pretrained(
-    "distilbert-base-uncased-finetuned-sst-2-english"
-)
-
+tokenizer = AutoTokenizer.from_pretrained("philschmid/tiny-bert-sst2-distilled")
+model = AutoModelForSequenceClassification.from_pretrained("philschmid/tiny-bert-sst2-distilled")
 
 @app.route("/", methods=["POST"])
 def get_sentiment():
