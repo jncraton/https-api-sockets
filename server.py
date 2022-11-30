@@ -7,7 +7,7 @@ app = Flask(__name__)
 tokenizer = AutoTokenizer.from_pretrained("philschmid/tiny-bert-sst2-distilled")
 model = AutoModelForSequenceClassification.from_pretrained("philschmid/tiny-bert-sst2-distilled")
 
-@app.route("/", methods=["POST"])
+@app.route("/sentiment", methods=["POST"])
 def get_sentiment():
     if len(request.data) > 64:
         abort(413)
