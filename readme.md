@@ -10,7 +10,7 @@ Assignment
 
 The code in `getsentiment.py` is incomplete. Fill in the missing sections (denoted using `TODO` comments) to complete the program. When you are finished, all tests should pass, and the program should be able to be run from a terminal as follows:
 
-```
+```sh
 > python3 getsentiment.py I love sockets.
 positive
 ```
@@ -22,7 +22,7 @@ Testing
 
 You can run the tests as follows:
 
-```
+```sh
 python3 -m doctest getsentiment.py
 ```
 
