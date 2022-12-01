@@ -69,7 +69,7 @@ def get_response_body(response):
 
     >>> get_response_body(b'HTTP/1.1 200 OK\\r\\n\\r\\n')
     ''
-    
+
     >>> get_response_body(b'HTTP/1.1 200 OK\\r\\n\\r\\nbody')
     'body'
 
