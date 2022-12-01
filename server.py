@@ -3,6 +3,9 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 app = Flask(__name__)
+# This model was chosen because it is extremely small, not because it is
+# especially accurate. For a more accurate model, use something like
+# "distilbert-base-uncased-finetuned-sst-2-english"
 model = "philschmid/tiny-bert-sst2-distilled"
 
 tokenizer = AutoTokenizer.from_pretrained(model)
