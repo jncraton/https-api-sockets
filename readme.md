@@ -26,7 +26,7 @@ You can run the tests as follows:
 python3 -m doctest getsentiment.py
 ```
 
-You may also use the `test` task in the include makefile.
+You may also use the `test` task in the included makefile.
 
 Useful docs
 -----------
