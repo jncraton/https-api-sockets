@@ -4,84 +4,147 @@ import sys
 import re
 
 
-def get_sentiment(text):
-    """ 
-    Returns the sentiment polarity for a given text
-
-    >>> get_sentiment("I hate sandcastles.")
-    -0.8
+def build_api_request(body, host="joncraton.com", path="/sentiment"):
     """
-    response = get_api_response(text)
+    Builds the text of an HTTP POST request
 
-    # Grab the HTTP response body
-    # It is separated from the headers by a pair of newlines
-    body = response.split("\r\n\r\n")[1]
+    Here is a high-level description of an HTTP request:
 
-    # Tokenize the JSON string
-    # Normally we'd use json.loads or similar here. I've chosen to code a very crude
-    # parser to demonstrate what happens under the hood
-    tokens = re.split(r'[{}":\[\],\n]+', body)
+    https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_request_messages
 
-    for i, token in enumerate(tokens):
-        # When we find the token we're interested in (polarity) we return its value
-        if token == "<insert token value here>":
-            return float(tokens[i + 1])
+    >>> build_api_request("test").splitlines()[0]
+    'POST /sentiment HTTP/1.1'
 
+    >>> build_api_request("test", path='/index.html').splitlines()[0]
+    'POST /index.html HTTP/1.1'
 
-def get_api_response(text):
+    >>> build_api_request("test").split("Host:")[1].strip()[:13]
+    'joncraton.com'
+
+    >>> build_api_request("test", host='example.com').split("Host:")[1].strip()[:11]
+    'example.com'
+
+    >>> build_api_request("").split("Content-Length:")[1].strip()[:1]
+    '0'
+
+    >>> build_api_request("test").split("Content-Length:")[1].strip()[:1]
+    '4'
+
+    >>> build_api_request("test body")[-13:-4]
+    'test body'
+
+    >>> build_api_request("test body")[-4:]
+    '\\r\\n\\r\\n'
     """
-    Performs HTTP request to sentiment API and returns response body
-    """
-
-    host = "sentim-api.herokuapp.com"
-
-    # Create a new default SSLContext for the connection
-    ssl_context = ssl.<method to create default SSLContext>
-
-    # Create a TCP socket
-    with socket.socket(<appropriate parameters to create IPv4 TCP socket>) as sock:
-        # Connect on port 443
-        sock.<method to create connection on port 443>
-
-        # Wrap the TCP connection in our SSLContext
-        with ssl_context.wrap_socket(sock, server_hostname=host) as ssock:
-            # Build HTTP request to send
-            request = build_api_request(text).encode()
-
-            # Send the entire request to the API server
-            ssock.<method to send request>
-
-            # Recieve up to 1024 response bytes and decode to string
-            data = ssock.<method to recieve 1024 bytes of data from socket>
-
-            return data.decode()
-
-
-def build_api_request(text, host="sentim-api.herokuapp.com", path="/api/v1/"):
-    """ 
-    Builds an HTTP POST API request
-
-    >>> build_api_request("").split("Content-Length:")[1][:2]
-    '11'
-
-    >>> build_api_request("test").split("Content-Length:")[1][:2]
-    '15'
-    """
-
-    # Create POST request body
-    body = '{"text":"' + text + '"}'
 
     return (
-        f"POST {path} HTTP/1.1\r\n"
-        # Add needed HTTP headers
-        f"Host:{host}\r\n"
-        f"Accept: application/json\r\n"
-        f"Content-Type:application/json\r\n"
-        # Set the content length to the length of our body content
-        f"Content-Length:{<expression for the length of the body>}\r\n"
-        # Append the request body terminated with two newlines
-        f"\r\n{<expression for the request body>}\r\n\r\n"
+        # Send request line
+        # TODO: Set the path properly
+        f"POST /hardcoded-path HTTP/1.1\r\n"
+        # Add host HTTP header using `host` variable
+        f"Host:\r\n"
+        # TODO: Set the content length to the length of our body content
+        f"Content-Length:\r\n"
+        # TODO: Append the request body terminated by two newlines
+        f"\r\nBody\r\n\r\n"
     )
+
+
+def get_response_body(response):
+    """
+    Returns just the body of a successful HTTP response
+
+    The response will look something like this:
+
+        HTTP/1.1 200 OK
+        Content-Length: 5
+
+        Hello
+
+    The response body in this case is "hello"
+
+    Here is a high-level description of response messages:
+
+    https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_response_messages
+
+    >>> get_response_body(b'HTTP/1.1 200 OK\\r\\n\\r\\n')
+    ''
+    
+    >>> get_response_body(b'HTTP/1.1 200 OK\\r\\n\\r\\nbody')
+    'body'
+
+    >>> get_response_body(b'HTTP/1.1 200 OK\\r\\n\\r\\nnegative')
+    'negative'
+
+    >>> get_response_body(b'HTTP/1.1 200 OK\\r\\nheader\\r\\n\\r\\nbody')
+    'body'
+
+    >>> get_response_body(b'HTTP/1.1 500 OK\\r\\n\\r\\nerror')
+    Traceback (most recent call last):
+    ...
+    Exception: HTTP request failed: 500
+    """
+
+    status = response[9:12].decode()
+
+    # Raise an exception if the request was unsuccessful
+    if status != "200":
+        raise Exception(f"HTTP request failed: {status}")
+
+    # TODO: Split body from the response
+    # It is separated from the headers by a pair of newlines
+    body = response.decode()
+
+    return body
+
+
+def get_sentiment(text):
+    """
+    Performs HTTP request to sentiment API and returns response body
+
+    A connection is established by wrapping a TCP socket in an SSL context
+
+
+    The SSL module provides documentation and examples for this process:
+    https://docs.python.org/3/library/ssl.html
+
+    >>> get_sentiment("I hate sandcastles")
+    'negative'
+
+    >>> get_sentiment("I like movies")
+    'positive'
+    """
+
+    host = "joncraton.com"
+
+    # TODO: Create a new default SSLContext for the connection
+    ssl_context = None
+
+    # Create a TCP socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        # TODO: Connect to `host` on port 443
+        
+
+        # TODO: Properly wrap the TCP socket in our SSLContext
+        with ssl_context.wrap_socket() as ssock:
+            # TODO: Properly build HTTP request to send
+            req = text
+
+            # Send the entire request to the API server
+            ssock.sendall(req.encode())
+
+            # Receive initial HTTP data
+            res = ssock.recv(1024)
+
+            # Receive all HTTP data
+            expected_length = int(re.findall(rb"content-length:\s*(\d+)", res, flags=re.I)[-1])
+            get_body_length = lambda r: len(r) - r.index(b"\r\n\r\n") - 4
+
+            while get_body_length(res) < expected_length:
+                res += ssock.recv(1024)
+
+            # TODO: Return only the response body from `res`
+            return res
 
 
 if __name__ == "__main__":
