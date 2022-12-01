@@ -8,12 +8,23 @@ Note that this project intentionally uses Python's socket interface and low-leve
 Assignment
 ----------
 
-The code in `getsentiment.py` is incomplete. Fill in the missing sections (denoted using angle brackets) to complete the program. When you are finished, all tests should pass, and the program should be able to be run from a terminal as follows:
+The code in `getsentiment.py` is incomplete. Fill in the missing sections (denoted using `TODO` comments) to complete the program. When you are finished, all tests should pass, and the program should be able to be run from a terminal as follows:
 
 ```
 > python3 getsentiment.py I love sockets.
-0.5
+positive
 ```
+
+Testing
+-------
+
+You can run the tests as follows:
+
+```
+python3 -m doctest getsentiment.py
+```
+
+You may also use the `test` task in the include makefile.
 
 Useful docs
 -----------
