@@ -18,5 +18,10 @@ The code in `getsentiment.py` is incomplete. Fill in the missing sections (denot
 Useful docs
 -----------
 
-- [socket](https://docs.python.org/3/library/socket.html)
-- [ssl](https://docs.python.org/3/library/ssl.html)
+- Python
+    - [socket](https://docs.python.org/3/library/socket.html)
+    - [ssl](https://docs.python.org/3/library/ssl.html)
+- HTTP
+    - [Request Messages](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_request_messages)
+    - [Response Messages](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_response_messages)
+    - [Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
