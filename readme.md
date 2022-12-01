@@ -1,9 +1,9 @@
 HTTPS API Sockets
 =================
 
-This project connects to a very simple HTTPS API endpoint, sends a POST request, and parses infromation from the response.
+This project connects to a very simple HTTPS API endpoint, sends a POST request, and uses the infromation from the response body.
 
-Note that this project intentionally uses Python's socket interface and low-level response parsing. In a real-world application, you would likely use the `requests` and `json` libraries, or something else equally high-level, to interact with an HTTPS API. These libaries are much easier to use and provide much greater robustness and error handling. An example implementation of this program using `requests` is available in `requests-example.py`.
+Note that this project intentionally uses Python's socket interface and low-level response parsing. In a real-world application, you would likely use the `requests` library, or something else even higher-level, to interact with an HTTPS API. These libaries are much easier to use and provide much greater robustness and error handling. An example implementation of this program using `requests` is available in `requests-example.py`.
 
 Assignment
 ----------
