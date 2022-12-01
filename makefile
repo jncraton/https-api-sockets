@@ -11,3 +11,6 @@ test-server:
 
 run:
 	python3 getsentiment.py "I hate sandcastles."
+
+clean:
+	rm -rf __pycache__
